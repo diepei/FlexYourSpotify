@@ -81,7 +81,10 @@ export function StreamChecker() {
       const dataUrl = await toPng(dashboard, {
         backgroundColor: "#0b0710",
         cacheBust: true,
-        pixelRatio: 1080 / dashboard.offsetWidth,
+        pixelRatio: 2,
+        width: 540,
+        height: 960,
+        style: { width: "540px", height: "960px" },
         filter: (node) =>
           !(node instanceof HTMLElement && node.classList.contains("no-capture")),
       });
