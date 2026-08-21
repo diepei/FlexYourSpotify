@@ -102,6 +102,16 @@ function parseNextData(html: string): EmbedState {
   }
 }
 
+function parseOpenGraphImage(html: string): string {
+  const propertyFirst = html.match(
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+  );
+  const contentFirst = html.match(
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["'][^>]*>/i,
+  );
+  return (propertyFirst?.[1] ?? contentFirst?.[1] ?? "").replaceAll("&amp;", "&");
+}
+
 async function spotifyFetch(url: string, init?: RequestInit): Promise<Response> {
   const response = await fetch(url, {
     ...init,
@@ -124,7 +134,8 @@ async function spotifyFetch(url: string, init?: RequestInit): Promise<Response> 
 
 export async function fetchTrackStats(trackId: string): Promise<TrackStats> {
   const embedResponse = await spotifyFetch(`${EMBED_BASE}${trackId}`);
-  const embed = parseNextData(await embedResponse.text());
+  const embedHtml = await embedResponse.text();
+  const embed = parseNextData(embedHtml);
   const state = embed.props?.pageProps?.state;
   const token = state?.settings?.session?.accessToken;
   const embedTrack = state?.data?.entity;
@@ -161,7 +172,7 @@ export async function fetchTrackStats(trackId: string): Promise<TrackStats> {
   const image = [...covers].sort((a, b) => (b.width ?? 0) - (a.width ?? 0))[0]?.url ??
     [...(embedTrack.visualIdentity?.image ?? [])].sort(
       (a, b) => (b.maxWidth ?? 0) - (a.maxWidth ?? 0),
-    )[0]?.url ?? "";
+    )[0]?.url ?? parseOpenGraphImage(embedHtml);
   const visualIdentity = embedTrack.visualIdentity;
   const primary = track.albumOfTrack?.coverArt?.extractedColors?.colorRaw?.hex ??
     spotifyColorToHex(visualIdentity?.backgroundBase) ?? "#6754d9";
