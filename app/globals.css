@@ -30,19 +30,19 @@ body:has(.has-result) > header { display: none; }
 
 .landing, .result-page { min-height: 100svh; position: relative; display: grid; place-items: center; padding: 92px 24px 34px; }
 .has-result .landing { display: none; }
-.landing::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg,transparent 70%,rgba(5,4,8,.3)); }
-.search-form { position: relative; z-index: 2; width: min(100%,370px); }
-.search-form > #landing-title { margin: 0 0 9px; font: 18px var(--mono); letter-spacing: .01em; }
-.search-input { height: 39px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 9px; padding: 3px 4px 3px 12px; border: 1px solid rgba(255,255,255,.24); border-radius: 5px; background: rgba(25,18,30,.34); backdrop-filter: blur(14px) saturate(140%); }
+.landing::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%,rgba(121,72,166,.13),transparent 28%),linear-gradient(180deg,transparent 70%,rgba(5,4,8,.3)); }
+.search-form { position: relative; z-index: 2; width: min(100%,560px); }
+.search-form > #landing-title { max-width: 540px; margin: 0 0 25px; font: 700 clamp(42px,4.8vw,66px)/.98 var(--font-bricolage),sans-serif; letter-spacing: -.065em; text-wrap: balance; }
+.search-input { height: 56px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 4px 5px 4px 17px; border: 1px solid rgba(255,255,255,.25); border-radius: 11px; background: rgba(25,18,30,.44); box-shadow: inset 0 1px rgba(255,255,255,.05),0 22px 65px rgba(0,0,0,.25); backdrop-filter: blur(20px) saturate(145%); }
 .search-input > svg { color: rgba(255,255,255,.42); }
-.search-input input { min-width: 0; border: 0; outline: 0; color: white; background: transparent; font-size: 12px; }
+.search-input input { min-width: 0; border: 0; outline: 0; color: white; background: transparent; font: 14px var(--mono); }
 .search-input input::placeholder { color: rgba(255,255,255,.43); }
-.search-input:focus-within { border-color: rgba(255,255,255,.56); box-shadow: 0 0 0 2px rgba(255,255,255,.05); }
-.search-input button { width: 32px; height: 31px; border: 1px solid rgba(255,255,255,.25); border-radius: 5px; display: grid; place-items: center; color: white; background: rgba(255,255,255,.08); cursor: pointer; }
-.search-input button:hover:not(:disabled) { background: rgba(255,255,255,.17); }
+.search-input:focus-within { border-color: rgba(255,255,255,.52); box-shadow: 0 0 0 3px rgba(255,255,255,.045),0 22px 65px rgba(0,0,0,.25); }
+.search-input button { width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.25); border-radius: 9px; display: grid; place-items: center; color: white; background: rgba(255,255,255,.09); cursor: pointer; transition: transform .2s,background .2s,border-color .2s; }
+.search-input button:hover:not(:disabled) { border-color: rgba(255,255,255,.43); background: rgba(255,255,255,.17); transform: translateX(2px); }
 .search-input button:disabled { opacity: .4; cursor: not-allowed; }
-.search-caption { margin-top: 10px; font: 16px var(--mono); color: rgba(255,255,255,.76); }
-.error { margin: 9px 0 0; color: #ef4444; font: 10px/1.25 var(--font-bricolage),sans-serif; font-weight: 400; }
+.search-caption { margin-top: 14px; color: rgba(255,255,255,.56); font: 12px var(--mono); letter-spacing: .045em; }
+.error { margin: 12px 0 0; color: #f0646d; font: 12px/1.3 var(--font-bricolage),sans-serif; font-weight: 400; }
 .spin { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -97,7 +97,6 @@ body:has(.has-result) > header { display: none; }
   .brand { font-size: 22px; }
   .brand img { width: 32px; height: 32px; }
   .landing { padding: 82px 18px 28px; }
-  .landing::before { width: 112vw; box-shadow: 0 0 0 50px rgba(255,255,255,.014),0 0 0 100px rgba(255,255,255,.01); }
   .search-form { width: min(100%,430px); }
   .landing-kicker { margin-bottom: 11px; font-size: 9px; }
   .search-form > #landing-title { font-size: clamp(39px,12vw,52px); }
