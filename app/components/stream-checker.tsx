@@ -70,13 +70,15 @@ export function StreamChecker() {
 
   async function handleDownload() {
     if (!dashboardRef.current || !track) return;
+    const dashboard = dashboardRef.current;
     setDownloading(true);
+    dashboard.classList.add("exporting");
 
     try {
-      const panelImages = Array.from(dashboardRef.current.querySelectorAll("img"));
+      const panelImages = Array.from(dashboard.querySelectorAll("img"));
       await Promise.all(panelImages.map((image) => image.decode().catch(() => undefined)));
       const { toPng } = await import("html-to-image");
-      const dataUrl = await toPng(dashboardRef.current, {
+      const dataUrl = await toPng(dashboard, {
         backgroundColor: "#0b0710",
         cacheBust: true,
         pixelRatio: 2,
@@ -94,6 +96,7 @@ export function StreamChecker() {
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
+      dashboard.classList.remove("exporting");
       setDownloading(false);
     }
   }

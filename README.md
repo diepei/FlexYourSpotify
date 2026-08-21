@@ -1,7 +1,10 @@
 <div align="center">
   <img src="public/flex-mark.svg" alt="Flex Your Spotify logo" width="84" />
 
-  <h1>Flex Your Spotify</h1>
+  <h1>
+    Flex Your Spotify<br />
+    <sub>Generate. Download. Share.</sub>
+  </h1>
 
   <br />
 
