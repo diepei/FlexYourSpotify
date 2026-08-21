@@ -110,7 +110,7 @@ body:has(.has-result) > header { display: none; }
   .search-input button { width: 40px; height: 40px; border-radius: 7px; }
   .search-caption { margin-top: 12px; gap: 7px; font-size: 9px; }
   .result-page { padding: 24px 12px 110px; display: block; }
-  .dashboard:not(.exporting) { width: 540px; max-width: none; margin-inline: auto; zoom: min(1, calc((100vw - 24px) / 540)); }
+  .dashboard { width: 100%; max-width: 540px; margin-inline: auto; }
 }
 
 @media (max-width: 360px) {
@@ -118,7 +118,6 @@ body:has(.has-result) > header { display: none; }
   .brand { gap: 8px; font-size: 19px; }
   .brand img { width: 29px; height: 29px; }
   .result-page { padding-inline: 8px; }
-  .dashboard:not(.exporting) { zoom: calc((100vw - 16px) / 540); }
 }
 
 @media (prefers-reduced-motion: reduce) {
