@@ -2,6 +2,14 @@
 
 Web app that reveals a song's total Spotify stream count from its URL and generates a shareable visual story.
 
+## Output
+
+Paste a Spotify track URL and Flex Your Spotify generates a vertical `1080 × 1920` story ready to download and share.
+
+<p align="center">
+  <img src="public/readme/flex-your-spotify-preview.png" alt="Flex Your Spotify generated story showing track information and total streams" width="420" />
+</p>
+
 ## Development
 
 ```bash
@@ -11,10 +19,6 @@ npm run dev
 ```
 
 Open `http://localhost:3000` and paste a Spotify song URL.
-
-```text
-https://open.spotify.com/track/4cOdK2wGLETKBW3PvgPWqT
-```
 
 ## How it works
 
