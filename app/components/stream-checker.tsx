@@ -70,6 +70,7 @@ export function StreamChecker() {
   async function handleDownload() {
     if (!dashboardRef.current || !track) return;
     const dashboard = dashboardRef.current;
+    setError("");
     setDownloading(true);
     dashboard.classList.add("exporting");
 
@@ -84,11 +85,17 @@ export function StreamChecker() {
         filter: (node) =>
           !(node instanceof HTMLElement && node.classList.contains("no-capture")),
       });
+      const imageBlob = await (await fetch(dataUrl)).blob();
+      const downloadUrl = URL.createObjectURL(imageBlob);
       const link = document.createElement("a");
       const fileName = track.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
       link.download = `${fileName || "spotify"}-flex-your-spotify.png`;
-      link.href = dataUrl;
+      link.href = downloadUrl;
+      link.style.display = "none";
+      document.body.appendChild(link);
       link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 60_000);
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
@@ -227,6 +234,7 @@ export function StreamChecker() {
               </button>
             </div>
           </div>
+          {error ? <p className="download-error" role="alert">{error}</p> : null}
         </section>
       ) : null}
     </main>

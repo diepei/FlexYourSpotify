@@ -95,6 +95,7 @@ body:has(.has-result) > header { display: none; }
 .download-story svg { width: 14px; height: 14px; stroke-width: 1.7; }
 .download-story:hover:not(:disabled) { color: white; border-color: rgba(255,255,255,.42); background: rgba(255,255,255,.07); }
 .download-story:disabled { opacity: .55; cursor: wait; }
+.download-error { width: min(100%,540px); margin: 82px auto 0; color: #f0646d; font: 12px/1.4 var(--font-bricolage),sans-serif; text-align: center; }
 @media (max-width: 760px) {
   header { height: 67px; padding: 0 18px; }
   .brand { font-size: 22px; }
