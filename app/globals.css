@@ -109,8 +109,8 @@ body:has(.has-result) > header { display: none; }
   .search-input input { font-size: 16px; }
   .search-input button { width: 40px; height: 40px; border-radius: 7px; }
   .search-caption { margin-top: 12px; gap: 7px; font-size: 9px; }
-  .result-page { padding: 78px 12px 130px; display: block; }
-  .dashboard:not(.exporting) { width: 540px; margin-inline: auto; zoom: min(1, calc((100vw - 24px) / 540)); }
+  .result-page { padding: 24px 12px 110px; display: block; }
+  .dashboard:not(.exporting) { width: 540px; max-width: none; margin-inline: auto; zoom: min(1, calc((100vw - 24px) / 540)); }
 }
 
 @media (max-width: 360px) {
