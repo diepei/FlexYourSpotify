@@ -30,7 +30,6 @@ body:has(.has-result) > header { display: none; }
 
 .landing, .result-page { min-height: 100svh; position: relative; display: grid; place-items: center; padding: 92px 24px 34px; }
 .has-result .landing { display: none; }
-.landing::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at 50% 50%,rgba(121,72,166,.13),transparent 28%),linear-gradient(180deg,transparent 70%,rgba(5,4,8,.3)); }
 .search-form { position: relative; z-index: 2; width: min(100%,560px); }
 .search-form > #landing-title { max-width: 540px; margin: 0 0 25px; font: 700 clamp(42px,4.8vw,66px)/.98 var(--font-bricolage),sans-serif; letter-spacing: -.065em; text-wrap: balance; }
 .search-input { height: 56px; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 4px 5px 4px 17px; border: 1px solid rgba(255,255,255,.25); border-radius: 11px; background: rgba(25,18,30,.44); box-shadow: inset 0 1px rgba(255,255,255,.05),0 22px 65px rgba(0,0,0,.25); backdrop-filter: blur(20px) saturate(145%); }
@@ -46,7 +45,7 @@ body:has(.has-result) > header { display: none; }
 .spin { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-.result-page { scroll-margin-top: 0; padding-bottom: 130px; overflow-x: clip; background: rgba(5,4,9,.12); }
+.result-page { scroll-margin-top: 0; padding-bottom: 130px; overflow-x: clip; background: transparent; }
 .dashboard { position: relative; width: min(100%,540px); aspect-ratio: 9 / 16; padding: 48px 28px 40px; display: flex; flex-direction: column; overflow: visible; background: radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--theme-primary) 18%,transparent),transparent 34%),#09060d; box-shadow: 0 32px 100px rgba(0,0,0,.42); }
 .dashboard::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .22; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E"); mix-blend-mode: soft-light; }
 .story-glow { position: absolute; z-index: 0; width: 390px; aspect-ratio: 1; border-radius: 50%; pointer-events: none; filter: blur(85px); opacity: .38; }
