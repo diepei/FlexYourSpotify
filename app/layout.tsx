@@ -19,6 +19,9 @@ const robotoMono = Roboto_Mono({
 export const metadata: Metadata = {
   title: "Flex Your Spotify — See a song's streams",
   description: "Check the total number of streams for any Spotify song from its URL.",
+  icons: {
+    icon: "/flex-mark.svg",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
