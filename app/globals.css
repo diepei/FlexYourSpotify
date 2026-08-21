@@ -112,6 +112,7 @@ body:has(.has-result) > header { display: none; }
   .search-caption { margin-top: 12px; gap: 7px; font-size: 11px; }
   .result-page { padding: 24px 12px 110px; display: block; }
   .dashboard { width: 100%; max-width: 540px; margin-inline: auto; }
+  .dashboard .tile-icon { display: none; }
 }
 
 @media (max-width: 360px) {
