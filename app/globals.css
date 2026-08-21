@@ -44,7 +44,7 @@ body:has(.has-result) > header { display: none; }
 .search-input button { width: 46px; height: 46px; border: 1px solid rgba(255,255,255,.25); border-radius: 9px; display: grid; place-items: center; color: white; background: rgba(255,255,255,.09); cursor: pointer; transition: transform .2s,background .2s,border-color .2s; }
 .search-input button:hover:not(:disabled) { border-color: rgba(255,255,255,.43); background: rgba(255,255,255,.17); transform: translateX(2px); }
 .search-input button:disabled { opacity: .4; cursor: not-allowed; }
-.search-caption { margin-top: 14px; color: rgba(255,255,255,.56); font: 12px var(--mono); letter-spacing: .045em; }
+.search-caption { margin-top: 14px; color: rgba(255,255,255,.56); font: 14px var(--mono); letter-spacing: .045em; }
 .error { margin: 12px 0 0; color: #f0646d; font: 12px/1.3 var(--font-bricolage),sans-serif; font-weight: 400; }
 .spin { animation: spin .8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -108,7 +108,7 @@ body:has(.has-result) > header { display: none; }
   .search-input { height: 48px; padding: 3px 4px 3px 13px; border-radius: 8px; }
   .search-input input { font-size: 16px; }
   .search-input button { width: 40px; height: 40px; border-radius: 7px; }
-  .search-caption { margin-top: 12px; gap: 7px; font-size: 9px; }
+  .search-caption { margin-top: 12px; gap: 7px; font-size: 11px; }
   .result-page { padding: 24px 12px 110px; display: block; }
   .dashboard { width: 100%; max-width: 540px; margin-inline: auto; }
 }
