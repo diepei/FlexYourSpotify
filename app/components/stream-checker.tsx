@@ -38,6 +38,34 @@ function blobToDataUrl(blob: Blob): Promise<string> {
   });
 }
 
+function waitForImage(image: HTMLImageElement): Promise<void> {
+  if (image.complete && image.naturalWidth > 0) return Promise.resolve();
+
+  return new Promise((resolve, reject) => {
+    const handleLoad = () => {
+      cleanup();
+      resolve();
+    };
+    const handleError = () => {
+      cleanup();
+      reject(new Error("Cover could not be decoded."));
+    };
+    const cleanup = () => {
+      image.removeEventListener("load", handleLoad);
+      image.removeEventListener("error", handleError);
+    };
+
+    image.addEventListener("load", handleLoad, { once: true });
+    image.addEventListener("error", handleError, { once: true });
+  });
+}
+
+function waitForPaint(): Promise<void> {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+  });
+}
+
 export function StreamChecker() {
   const [url, setUrl] = useState("");
   const [track, setTrack] = useState<TrackStats | null>(null);
@@ -87,9 +115,13 @@ export function StreamChecker() {
     const coverImages = Array.from(
       dashboard.querySelectorAll<HTMLImageElement>("img.song-cover-image"),
     );
-    const originalCoverSources = coverImages.map((image) => ({
+    const originalCoverStyles = coverImages.map((image) => ({
       image,
-      src: image.src,
+      display: image.style.display,
+      container: image.parentElement,
+      backgroundImage: image.parentElement?.style.backgroundImage ?? "",
+      backgroundPosition: image.parentElement?.style.backgroundPosition ?? "",
+      backgroundSize: image.parentElement?.style.backgroundSize ?? "",
     }));
 
     try {
@@ -99,12 +131,23 @@ export function StreamChecker() {
         const inlineCover = await blobToDataUrl(await coverResponse.blob());
 
         coverImages.forEach((image) => {
-          image.src = inlineCover;
+          const container = image.parentElement;
+          if (!container) return;
+
+          // WebKit can omit raster <img> elements while html-to-image renders its
+          // temporary foreignObject. An inline CSS background survives that path.
+          container.style.backgroundImage = `url("${inlineCover}")`;
+          container.style.backgroundPosition = "center";
+          container.style.backgroundSize = "cover";
+          image.style.display = "none";
         });
       }
 
-      const panelImages = Array.from(dashboard.querySelectorAll("img"));
-      await Promise.all(panelImages.map((image) => image.decode().catch(() => undefined)));
+      const panelImages = Array.from(
+        dashboard.querySelectorAll<HTMLImageElement>("img:not(.song-cover-image)"),
+      );
+      await Promise.all(panelImages.map(waitForImage));
+      await waitForPaint();
       const { toPng } = await import("html-to-image");
       const dataUrl = await toPng(dashboard, {
         backgroundColor: "#0b0710",
@@ -127,8 +170,19 @@ export function StreamChecker() {
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
-      originalCoverSources.forEach(({ image, src }) => {
-        image.src = src;
+      originalCoverStyles.forEach(({
+        image,
+        display,
+        container,
+        backgroundImage,
+        backgroundPosition,
+        backgroundSize,
+      }) => {
+        image.style.display = display;
+        if (!container) return;
+        container.style.backgroundImage = backgroundImage;
+        container.style.backgroundPosition = backgroundPosition;
+        container.style.backgroundSize = backgroundSize;
       });
       dashboard.classList.remove("exporting");
       setDownloading(false);
