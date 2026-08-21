@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import Image from "next/image";
 import { CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
@@ -81,23 +82,24 @@ export function StreamChecker() {
     const dashboard = dashboardRef.current;
     setError("");
     setDownloading(true);
+    await new Promise<void>((resolve) => window.requestAnimationFrame(() => resolve()));
     dashboard.classList.add("exporting");
-    const coverLayers = Array.from(
-      dashboard.querySelectorAll<HTMLElement>(".song-cover-image"),
+    const coverImages = Array.from(
+      dashboard.querySelectorAll<HTMLImageElement>("img.song-cover-image"),
     );
-    const originalCoverBackgrounds = coverLayers.map((layer) => ({
-      layer,
-      backgroundImage: layer.style.backgroundImage,
+    const originalCoverSources = coverImages.map((image) => ({
+      image,
+      src: image.src,
     }));
 
     try {
-      if (coverUrl && coverLayers.length > 0) {
+      if (coverUrl && coverImages.length > 0) {
         const coverResponse = await fetch(coverUrl, { cache: "no-store" });
         if (!coverResponse.ok) throw new Error("Cover could not be loaded.");
         const inlineCover = await blobToDataUrl(await coverResponse.blob());
 
-        coverLayers.forEach((layer) => {
-          layer.style.backgroundImage = `url("${inlineCover}")`;
+        coverImages.forEach((image) => {
+          image.src = inlineCover;
         });
       }
 
@@ -125,8 +127,8 @@ export function StreamChecker() {
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
-      originalCoverBackgrounds.forEach(({ layer, backgroundImage }) => {
-        layer.style.backgroundImage = backgroundImage;
+      originalCoverSources.forEach(({ image, src }) => {
+        image.src = src;
       });
       dashboard.classList.remove("exporting");
       setDownloading(false);
@@ -185,7 +187,7 @@ export function StreamChecker() {
             <div className="dashboard-heading">
               <div className="mini-cover">
                 {coverUrl ? (
-                  <div className="song-cover-image" style={{ backgroundImage: `url("${coverUrl}")` }} />
+                  <img className="song-cover-image" src={coverUrl} alt="" />
                 ) : <Disc3 />}
               </div>
               <div>
@@ -197,11 +199,10 @@ export function StreamChecker() {
             <div className="panel-grid">
               <article className="tile cover-tile">
                 {coverUrl ? (
-                  <div
+                  <img
                     className="song-cover-image"
-                    role="img"
-                    aria-label={`${track.album} cover`}
-                    style={{ backgroundImage: `url("${coverUrl}")` }}
+                    src={coverUrl}
+                    alt={`${track.album} cover`}
                   />
                 ) : <Disc3 size={52} />}
                 <div className="cover-shade" />

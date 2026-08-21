@@ -59,7 +59,7 @@ body:has(.has-result) > header { display: none; }
 .mini-cover { width: 58px; aspect-ratio: 1; position: relative; overflow: hidden; display: grid; place-items: center; border-radius: 50%; background: #17131c; box-shadow: 0 0 0 1px rgba(255,255,255,.15),0 0 34px color-mix(in srgb,var(--theme-primary) 60%,transparent); }
 .dashboard.exporting .dashboard-heading::before { content: ""; position: absolute; z-index: -1; top: 50%; left: -26px; width: 110px; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle,var(--theme-primary) 0%,transparent 70%); opacity: .5; transform: translateY(-50%); }
 .dashboard.exporting .mini-cover { border: 1px solid rgba(255,255,255,.15); box-shadow: none; }
-.song-cover-image { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+.song-cover-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .dashboard-heading span { color: rgba(255,255,255,.55); font: 10px var(--mono); text-transform: uppercase; letter-spacing: .13em; }
 .dashboard-heading h1 { margin: 3px 0 0; max-width: 390px; overflow: hidden; font-size: 27px; line-height: 1; letter-spacing: -.05em; white-space: nowrap; text-overflow: ellipsis; }
 
