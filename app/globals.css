@@ -27,8 +27,12 @@ header { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; height: 
 body:has(.has-result) > header { display: none; }
 .brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-bricolage), sans-serif; font-size: 30px; font-weight: 750; letter-spacing: -.045em; color: rgba(255,255,255,.72); }
 .brand img { width: 38px; height: 38px; }
+.developer-credit { position: relative; z-index: 20; min-height: 32px; padding: 6px 16px 14px; color: rgba(255,255,255,.38); font: 9px var(--mono); letter-spacing: .035em; text-align: center; white-space: nowrap; }
+.developer-credit a { color: rgba(255,255,255,.62); transition: color .2s; }
+.developer-credit a:hover { color: var(--white); }
+.developer-credit a:focus-visible { color: var(--white); outline: 1px solid rgba(255,255,255,.5); outline-offset: 4px; border-radius: 2px; }
 
-.landing, .result-page { min-height: 100svh; position: relative; display: grid; place-items: center; padding: 92px 24px 34px; }
+.landing, .result-page { min-height: calc(100svh - 32px); position: relative; display: grid; place-items: center; padding: 92px 24px 34px; }
 .has-result .landing { display: none; }
 .search-form { position: relative; z-index: 2; width: min(100%,560px); }
 .search-form > #landing-title { max-width: 540px; margin: 0 0 25px; font: 700 clamp(42px,4.8vw,66px)/.98 var(--font-bricolage),sans-serif; letter-spacing: -.065em; text-wrap: balance; }
@@ -95,6 +99,7 @@ body:has(.has-result) > header { display: none; }
   header { height: 67px; padding: 0 18px; }
   .brand { font-size: 22px; }
   .brand img { width: 32px; height: 32px; }
+  .developer-credit { font-size: 8px; }
   .landing { padding: 82px 18px 28px; }
   .search-form { width: min(100%,430px); }
   .landing-kicker { margin-bottom: 11px; font-size: 9px; }

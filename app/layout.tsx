@@ -36,6 +36,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </Link>
         </header>
         {children}
+        <footer className="developer-credit">
+          Developed by{" "}
+          <a href="https://github.com/diepei" target="_blank" rel="noreferrer">
+            Diego Peinado
+          </a>
+        </footer>
       </body>
     </html>
   );
