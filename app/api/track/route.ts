@@ -1,21 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchTrackStats, SpotifyLookupError } from "@/lib/spotify";
-import { extractTrackId } from "@/lib/spotify-url";
+import { resolveTrackId } from "@/lib/spotify-url";
 
 export const runtime = "nodejs";
 
 export async function GET(request: NextRequest) {
   const input = request.nextUrl.searchParams.get("url") ?? "";
-  const trackId = extractTrackId(input);
-
-  if (!trackId) {
-    return NextResponse.json(
-      { error: "URL not valid." },
-      { status: 400 },
-    );
-  }
-
   try {
+    const trackId = await resolveTrackId(input);
+    if (!trackId) {
+      return NextResponse.json(
+        { error: "URL not valid." },
+        { status: 400 },
+      );
+    }
+
     return NextResponse.json(await fetchTrackStats(trackId), {
       headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" },
     });
