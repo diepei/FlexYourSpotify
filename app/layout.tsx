@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Roboto_Mono } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
 import "./globals.css";
 
@@ -27,7 +28,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <div className="noise" aria-hidden="true" />
         <header>
           <Link className={`${bricolage.className} brand`} href="/" aria-label="Flex Your Spotify, home">
-            <span>FLEX YOUR SPOTIFY</span>
+            <Image src="/flex-mark.svg" alt="" width={40} height={40} priority />
+            <span>Flex Your Spotify</span>
           </Link>
         </header>
         {children}

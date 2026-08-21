@@ -25,7 +25,8 @@ body::before {
 
 header { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; height: 82px; display: flex; align-items: center; padding: 0 30px; }
 body:has(.has-result) > header { display: none; }
-.brand { display: flex; align-items: center; font-family: var(--font-bricolage), sans-serif; font-size: 25px; font-weight: 750; letter-spacing: -.045em; color: rgba(255,255,255,.72); }
+.brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-bricolage), sans-serif; font-size: 30px; font-weight: 750; letter-spacing: -.045em; color: rgba(255,255,255,.72); }
+.brand img { width: 38px; height: 38px; }
 
 .landing, .result-page { min-height: 100svh; position: relative; display: grid; place-items: center; padding: 92px 24px 34px; }
 .has-result .landing { display: none; }
@@ -93,7 +94,8 @@ body:has(.has-result) > header { display: none; }
 .download-story:disabled { opacity: .55; cursor: wait; }
 @media (max-width: 760px) {
   header { height: 67px; padding: 0 18px; }
-  .brand { font-size: 18px; }
+  .brand { font-size: 22px; }
+  .brand img { width: 32px; height: 32px; }
   .landing { padding-inline: 20px; }
   .search-form { width: min(100%,350px); }
   .search-form > #landing-title { font-size: 15px; }
