@@ -97,12 +97,15 @@ body:has(.has-result) > header { display: none; }
   .brand { font-size: 22px; }
   .brand img { width: 32px; height: 32px; }
   .landing { padding: 82px 18px 28px; }
-  .search-form { width: min(100%,350px); }
-  .search-form > #landing-title { font-size: 15px; }
+  .landing::before { width: 112vw; box-shadow: 0 0 0 50px rgba(255,255,255,.014),0 0 0 100px rgba(255,255,255,.01); }
+  .search-form { width: min(100%,430px); }
+  .landing-kicker { margin-bottom: 11px; font-size: 9px; }
+  .search-form > #landing-title { font-size: clamp(39px,12vw,52px); }
+  .landing-copy { margin: 16px 0 22px; font-size: 12px; line-height: 1.6; }
   .search-input { height: 48px; padding: 3px 4px 3px 13px; border-radius: 8px; }
   .search-input input { font-size: 16px; }
   .search-input button { width: 40px; height: 40px; border-radius: 7px; }
-  .search-caption { font-size: 13px; }
+  .search-caption { margin-top: 12px; gap: 7px; font-size: 9px; }
   .result-page { padding: 78px 12px 130px; display: block; }
   .dashboard:not(.exporting) { padding: 28px 16px 24px; }
   .dashboard:not(.exporting) .dashboard-heading { grid-template-columns: 42px minmax(0,1fr); gap: 10px; margin-bottom: 13px; }
