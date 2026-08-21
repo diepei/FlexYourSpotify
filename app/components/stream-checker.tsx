@@ -28,6 +28,15 @@ function formatDuration(milliseconds: number) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
+function blobToDataUrl(blob: Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(String(reader.result)));
+    reader.addEventListener("error", () => reject(reader.error));
+    reader.readAsDataURL(blob);
+  });
+}
+
 export function StreamChecker() {
   const [url, setUrl] = useState("");
   const [track, setTrack] = useState<TrackStats | null>(null);
@@ -73,8 +82,27 @@ export function StreamChecker() {
     setError("");
     setDownloading(true);
     dashboard.classList.add("exporting");
+    const coverImages = Array.from(
+      dashboard.querySelectorAll<HTMLImageElement>('img[src*="/api/cover"]'),
+    );
+    const originalCoverSources = coverImages.map((image) => ({
+      image,
+      src: image.getAttribute("src"),
+      srcset: image.getAttribute("srcset"),
+    }));
 
     try {
+      if (coverUrl && coverImages.length > 0) {
+        const coverResponse = await fetch(coverUrl, { cache: "no-store" });
+        if (!coverResponse.ok) throw new Error("Cover could not be loaded.");
+        const inlineCover = await blobToDataUrl(await coverResponse.blob());
+
+        coverImages.forEach((image) => {
+          image.removeAttribute("srcset");
+          image.src = inlineCover;
+        });
+      }
+
       const panelImages = Array.from(dashboard.querySelectorAll("img"));
       await Promise.all(panelImages.map((image) => image.decode().catch(() => undefined)));
       const { toPng } = await import("html-to-image");
@@ -99,6 +127,12 @@ export function StreamChecker() {
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
+      originalCoverSources.forEach(({ image, src, srcset }) => {
+        if (src === null) image.removeAttribute("src");
+        else image.setAttribute("src", src);
+        if (srcset === null) image.removeAttribute("srcset");
+        else image.setAttribute("srcset", srcset);
+      });
       dashboard.classList.remove("exporting");
       setDownloading(false);
     }
