@@ -4,18 +4,11 @@
 import Image from "next/image";
 import { CSSProperties, FormEvent, useEffect, useRef, useState } from "react";
 import {
-  Album,
   ArrowRight,
-  CalendarDays,
-  Clock3,
   Disc3,
   Download,
-  Headphones,
   LoaderCircle,
-  Mic2,
   Music2,
-  Radio,
-  Sparkles,
 } from "lucide-react";
 import type { TrackStats } from "@/lib/spotify";
 
@@ -260,7 +253,6 @@ export function StreamChecker() {
                   />
                 ) : <Disc3 size={52} />}
                 <div className="cover-shade" />
-                <span className="tile-icon"><Headphones /></span>
                 <div className="tile-bottom"><span>Now analyzing</span><strong>PLAYING</strong></div>
               </article>
 
@@ -274,7 +266,6 @@ export function StreamChecker() {
                   unoptimized
                   style={{ position: "absolute", inset: "-2%", width: "104%", height: "104%", maxWidth: "none", objectFit: "fill" }}
                 />
-                <span className="tile-icon"><Radio /></span>
                 <div className="stream-content">
                   <p>Total streams</p>
                   <strong>{formatNumber(track.playcount)}</strong>
@@ -284,13 +275,11 @@ export function StreamChecker() {
 
               <article className="tile track-tile">
                 <Image className="panel-background" src="/panel-backgrounds/track.svg" alt="" fill unoptimized />
-                <span className="tile-icon"><Sparkles /></span>
                 <div className="tile-bottom"><span>Track</span><strong>{track.name}</strong></div>
               </article>
 
               <article className="tile artist-tile">
                 <Image className="panel-background" src="/panel-backgrounds/artist.svg" alt="" fill unoptimized />
-                <span className="tile-icon"><Mic2 /></span>
                 <div className="tile-bottom">
                   <span>Artist</span>
                   <strong className="artist-list">
@@ -301,19 +290,16 @@ export function StreamChecker() {
 
               <article className="tile album-tile">
                 <Image className="panel-background" src="/panel-backgrounds/album.svg" alt="" fill unoptimized />
-                <span className="tile-icon"><Album /></span>
                 <div className="tile-bottom"><span>Album</span><strong>{track.album}</strong></div>
               </article>
 
               <article className="tile duration-tile">
                 <Image className="panel-background" src="/panel-backgrounds/duration.svg" alt="" fill unoptimized />
-                <span className="tile-icon"><Clock3 /></span>
                 <div className="tile-bottom"><span>Duration</span><strong>{formatDuration(track.durationMs)}</strong></div>
               </article>
 
               <article className="tile year-tile">
                 <Image className="panel-background" src="/panel-backgrounds/released.svg" alt="" fill unoptimized />
-                <span className="tile-icon"><CalendarDays /></span>
                 <div className="tile-bottom"><span>Released</span><strong>{track.albumYear ?? "—"}</strong></div>
               </article>
 
