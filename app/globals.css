@@ -27,8 +27,8 @@ header { position: absolute; z-index: 20; top: 0; left: 0; width: 100%; height: 
 body:has(.has-result) > header { display: none; }
 .brand { display: flex; align-items: center; gap: 11px; font-family: var(--font-bricolage), sans-serif; font-size: 30px; font-weight: 750; letter-spacing: -.045em; color: rgba(255,255,255,.72); }
 .brand img { width: 38px; height: 38px; }
-.developer-credit { position: relative; z-index: 20; min-height: 32px; padding: 6px 16px 14px; color: rgba(255,255,255,.38); font: 9px var(--mono); letter-spacing: .035em; text-align: center; white-space: nowrap; }
-.developer-credit a { color: rgba(255,255,255,.62); transition: color .2s; }
+.developer-credit { position: relative; z-index: 20; left: 50vw; width: max-content; height: 32px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.38); font: 9px var(--mono); letter-spacing: .035em; text-align: center; white-space: nowrap; transform: translateX(-50%); }
+.developer-credit a { margin-left: .35em; color: rgba(255,255,255,.62); transition: color .2s; }
 .developer-credit a:hover { color: var(--white); }
 .developer-credit a:focus-visible { color: var(--white); outline: 1px solid rgba(255,255,255,.5); outline-offset: 4px; border-radius: 2px; }
 
