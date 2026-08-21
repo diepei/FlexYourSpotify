@@ -82,24 +82,22 @@ export function StreamChecker() {
     setError("");
     setDownloading(true);
     dashboard.classList.add("exporting");
-    const coverImages = Array.from(
-      dashboard.querySelectorAll<HTMLImageElement>('img[src*="/api/cover"]'),
+    const coverLayers = Array.from(
+      dashboard.querySelectorAll<HTMLElement>(".song-cover-image"),
     );
-    const originalCoverSources = coverImages.map((image) => ({
-      image,
-      src: image.getAttribute("src"),
-      srcset: image.getAttribute("srcset"),
+    const originalCoverBackgrounds = coverLayers.map((layer) => ({
+      layer,
+      backgroundImage: layer.style.backgroundImage,
     }));
 
     try {
-      if (coverUrl && coverImages.length > 0) {
+      if (coverUrl && coverLayers.length > 0) {
         const coverResponse = await fetch(coverUrl, { cache: "no-store" });
         if (!coverResponse.ok) throw new Error("Cover could not be loaded.");
         const inlineCover = await blobToDataUrl(await coverResponse.blob());
 
-        coverImages.forEach((image) => {
-          image.removeAttribute("srcset");
-          image.src = inlineCover;
+        coverLayers.forEach((layer) => {
+          layer.style.backgroundImage = `url("${inlineCover}")`;
         });
       }
 
@@ -127,11 +125,8 @@ export function StreamChecker() {
     } catch {
       setError("Your Spotify story could not be downloaded.");
     } finally {
-      originalCoverSources.forEach(({ image, src, srcset }) => {
-        if (src === null) image.removeAttribute("src");
-        else image.setAttribute("src", src);
-        if (srcset === null) image.removeAttribute("srcset");
-        else image.setAttribute("srcset", srcset);
+      originalCoverBackgrounds.forEach(({ layer, backgroundImage }) => {
+        layer.style.backgroundImage = backgroundImage;
       });
       dashboard.classList.remove("exporting");
       setDownloading(false);
@@ -189,7 +184,9 @@ export function StreamChecker() {
             <div className="story-glow story-glow-two" aria-hidden="true" />
             <div className="dashboard-heading">
               <div className="mini-cover">
-                {coverUrl ? <Image src={coverUrl} alt="" fill sizes="49px" unoptimized /> : <Disc3 />}
+                {coverUrl ? (
+                  <div className="song-cover-image" style={{ backgroundImage: `url("${coverUrl}")` }} />
+                ) : <Disc3 />}
               </div>
               <div>
                 <span>Flex Your Spotify</span>
@@ -199,7 +196,14 @@ export function StreamChecker() {
 
             <div className="panel-grid">
               <article className="tile cover-tile">
-                {coverUrl ? <Image src={coverUrl} alt={`${track.album} cover`} fill sizes="(max-width: 760px) 50vw, 290px" unoptimized /> : <Disc3 size={52} />}
+                {coverUrl ? (
+                  <div
+                    className="song-cover-image"
+                    role="img"
+                    aria-label={`${track.album} cover`}
+                    style={{ backgroundImage: `url("${coverUrl}")` }}
+                  />
+                ) : <Disc3 size={52} />}
                 <div className="cover-shade" />
                 <span className="tile-icon"><Headphones /></span>
                 <div className="tile-bottom"><span>Now analyzing</span><strong>PLAYING</strong></div>
