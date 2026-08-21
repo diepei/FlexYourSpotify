@@ -16,7 +16,7 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SpotifyAura — Reveal a song's aura",
+  title: "Flex Your Spotify — See a song's streams",
   description: "Check the total number of streams for any Spotify song from its URL.",
 };
 
@@ -26,8 +26,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <div className="noise" aria-hidden="true" />
         <header>
-          <Link className={`${bricolage.className} brand`} href="/" aria-label="SpotifyAura, home">
-            <span>SPOTIFY AURA</span>
+          <Link className={`${bricolage.className} brand`} href="/" aria-label="Flex Your Spotify, home">
+            <span>FLEX YOUR SPOTIFY</span>
           </Link>
         </header>
         {children}

@@ -88,11 +88,11 @@ export function StreamChecker() {
       });
       const link = document.createElement("a");
       const fileName = track.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-      link.download = `${fileName || "spotify"}-aura.png`;
+      link.download = `${fileName || "spotify"}-flex-your-spotify.png`;
       link.href = dataUrl;
       link.click();
     } catch {
-      setError("Your Spotify Aura could not be downloaded.");
+      setError("Your Spotify story could not be downloaded.");
     } finally {
       setDownloading(false);
     }
@@ -105,11 +105,11 @@ export function StreamChecker() {
     requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
   }
 
-  const auraColors = track
+  const themeColors = track
     ? ({
-        "--aura-primary": track.palette.primary,
-        "--aura-secondary": track.palette.secondary,
-        "--aura-accent": track.palette.accent,
+        "--theme-primary": track.palette.primary,
+        "--theme-secondary": track.palette.secondary,
+        "--theme-accent": track.palette.accent,
       } as CSSProperties)
     : undefined;
   const coverUrl = track?.image ? `/api/cover?url=${encodeURIComponent(track.image)}` : "";
@@ -117,9 +117,9 @@ export function StreamChecker() {
   return (
     <main className={track && resultLocked ? "has-result" : undefined}>
       <section className="landing" aria-labelledby="landing-title">
-        <form className="aura-form" onSubmit={handleSubmit}>
-          <p id="landing-title">Flex Your Spotify Aura on Social.</p>
-          <div className="aura-input">
+        <form className="search-form" onSubmit={handleSubmit}>
+          <p id="landing-title">Flex Your Spotify on Social.</p>
+          <div className="search-input">
             <Music2 size={16} aria-hidden="true" />
             <input
               aria-label="Spotify song URL"
@@ -131,11 +131,11 @@ export function StreamChecker() {
               autoComplete="off"
               aria-describedby={error ? "form-error" : undefined}
             />
-            <button type="submit" aria-label="Descubrir Spotify Aura" disabled={loading || !url.trim()}>
+            <button type="submit" aria-label="Generate Flex Your Spotify" disabled={loading || !url.trim()}>
               {loading ? <LoaderCircle className="spin" size={18} /> : <ArrowRight size={18} />}
             </button>
           </div>
-          <div className="aura-caption">
+          <div className="search-caption">
             <span>Generate. Download. Share.</span>
           </div>
           {error ? <p className="error" id="form-error" role="alert">{error}</p> : null}
@@ -143,8 +143,8 @@ export function StreamChecker() {
       </section>
 
       {track ? (
-        <section className="aura-result" ref={resultRef} aria-labelledby="aura-title">
-          <div className="dashboard" ref={dashboardRef} style={auraColors} aria-live="polite">
+        <section className="result-page" ref={resultRef} aria-labelledby="result-title">
+          <div className="dashboard" ref={dashboardRef} style={themeColors} aria-live="polite">
             <div className="story-glow story-glow-one" aria-hidden="true" />
             <div className="story-glow story-glow-two" aria-hidden="true" />
             <div className="dashboard-heading">
@@ -152,12 +152,12 @@ export function StreamChecker() {
                 {coverUrl ? <Image src={coverUrl} alt="" fill sizes="49px" unoptimized /> : <Disc3 />}
               </div>
               <div>
-                <span>Your Spotify Aura</span>
-                <h1 id="aura-title">{track.name}</h1>
+                <span>Flex Your Spotify</span>
+                <h1 id="result-title">{track.name}</h1>
               </div>
             </div>
 
-            <div className="aura-grid">
+            <div className="panel-grid">
               <article className="tile cover-tile">
                 {coverUrl ? <Image src={coverUrl} alt={`${track.album} cover`} fill sizes="(max-width: 760px) 50vw, 290px" unoptimized /> : <Disc3 size={52} />}
                 <div className="cover-shade" />
@@ -220,13 +220,11 @@ export function StreamChecker() {
 
             </div>
 
-            <div className="story-signature">SPOTIFY AURA</div>
-
             <div className="dashboard-footer no-capture">
               <button className="search-again" type="button" onClick={handleSearchAgain}>Search another song ↑</button>
-              <button className="download-aura" type="button" onClick={handleDownload} disabled={downloading}>
+              <button className="download-story" type="button" onClick={handleDownload} disabled={downloading}>
                 {downloading ? <LoaderCircle className="spin" size={15} /> : <Download size={15} />}
-                {downloading ? "Preparing download" : "Download Your Spotify Aura"}
+                {downloading ? "Preparing download" : "Download Your Spotify Flex"}
               </button>
             </div>
           </div>
