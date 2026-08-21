@@ -110,32 +110,7 @@ body:has(.has-result) > header { display: none; }
   .search-input button { width: 40px; height: 40px; border-radius: 7px; }
   .search-caption { margin-top: 12px; gap: 7px; font-size: 9px; }
   .result-page { padding: 78px 12px 130px; display: block; }
-  .dashboard:not(.exporting) { padding: 28px 16px 24px; }
-  .dashboard:not(.exporting) .dashboard-heading { grid-template-columns: 42px minmax(0,1fr); gap: 10px; margin-bottom: 13px; }
-  .dashboard:not(.exporting) .mini-cover { width: 42px; }
-  .dashboard:not(.exporting) .dashboard-heading span { font-size: 8px; }
-  .dashboard:not(.exporting) .dashboard-heading h1 { max-width: 100%; font-size: clamp(18px,6vw,24px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dashboard:not(.exporting) .panel-grid { gap: 6px; }
-  .dashboard:not(.exporting) .stream-content { padding: 8px; }
-  .dashboard:not(.exporting) .stream-content p { margin-bottom: 12px; font-size: clamp(12px,4vw,14px); }
-  .dashboard:not(.exporting) .stream-content strong { font-size: clamp(18px,6.2vw,25px); letter-spacing: -.08em; }
-  .dashboard:not(.exporting) .stream-content span { margin-top: 7px; font-size: 9px; }
-  .dashboard:not(.exporting) .tile { border-radius: 17px; }
-  .dashboard:not(.exporting) .tile-icon { top: 9px; left: 10px; }
-  .dashboard:not(.exporting) .tile-icon svg { width: 28px; height: 28px; }
-  .dashboard:not(.exporting) .tile-bottom { bottom: 10px; left: 10px; right: 10px; gap: 2px; }
-  .dashboard:not(.exporting) .tile-bottom span { font-size: 10px; }
-  .dashboard:not(.exporting) .tile-bottom strong { font-size: clamp(14px,4.6vw,18px); }
-  .dashboard:not(.exporting) .cover-tile .tile-bottom strong { font-size: clamp(18px,6vw,24px); }
-  .dashboard:not(.exporting) .duration-tile .tile-icon,
-  .dashboard:not(.exporting) .year-tile .tile-icon { top: 50%; transform: translateY(-50%); }
-  .dashboard:not(.exporting) .duration-tile .tile-icon svg,
-  .dashboard:not(.exporting) .year-tile .tile-icon svg { width: 23px; height: 23px; }
-  .dashboard:not(.exporting) .duration-tile .tile-bottom,
-  .dashboard:not(.exporting) .year-tile .tile-bottom { top: 50%; bottom: auto; left: 43px; transform: translateY(-50%); }
-  .dashboard:not(.exporting) .dashboard-footer { top: calc(100% + 14px); align-items: stretch; flex-direction: column-reverse; gap: 14px; line-height: 1.5; }
-  .dashboard:not(.exporting) .download-story { width: 100%; min-width: 0; min-height: 48px; }
-  .dashboard:not(.exporting) .search-again { align-self: center; min-height: 32px; }
+  .dashboard:not(.exporting) { width: 540px; margin-inline: auto; zoom: min(1, calc((100vw - 24px) / 540)); }
 }
 
 @media (max-width: 360px) {
@@ -143,11 +118,7 @@ body:has(.has-result) > header { display: none; }
   .brand { gap: 8px; font-size: 19px; }
   .brand img { width: 29px; height: 29px; }
   .result-page { padding-inline: 8px; }
-  .dashboard:not(.exporting) { padding: 24px 13px 21px; }
-  .dashboard:not(.exporting) .panel-grid { gap: 5px; }
-  .dashboard:not(.exporting) .tile { border-radius: 14px; }
-  .dashboard:not(.exporting) .tile-icon svg { width: 24px; height: 24px; }
-  .dashboard:not(.exporting) .tile-bottom strong { font-size: clamp(12px,4.5vw,16px); }
+  .dashboard:not(.exporting) { zoom: calc((100vw - 16px) / 540); }
 }
 
 @media (prefers-reduced-motion: reduce) {

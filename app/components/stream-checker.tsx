@@ -35,16 +35,15 @@ export function StreamChecker() {
   const [loading, setLoading] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const [resultLocked, setResultLocked] = useState(false);
-  const resultRef = useRef<HTMLElement>(null);
   const dashboardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!track) return;
 
-    resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    const lockTimer = window.setTimeout(() => setResultLocked(true), 850);
-
-    return () => window.clearTimeout(lockTimer);
+    const frame = window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [track]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -58,7 +57,7 @@ export function StreamChecker() {
       if (!response.ok || "error" in data) {
         throw new Error("error" in data ? data.error : "Unexpected error");
       }
-      setResultLocked(false);
+      setResultLocked(true);
       setTrack(data);
     } catch (requestError) {
       setTrack(null);
@@ -146,7 +145,7 @@ export function StreamChecker() {
       </section>
 
       {track ? (
-        <section className="result-page" ref={resultRef} aria-labelledby="result-title">
+        <section className="result-page" aria-labelledby="result-title">
           <div className="dashboard" ref={dashboardRef} style={themeColors} aria-live="polite">
             <div className="story-glow story-glow-one" aria-hidden="true" />
             <div className="story-glow story-glow-two" aria-hidden="true" />
